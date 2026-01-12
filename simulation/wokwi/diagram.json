@@ -1,0 +1,193 @@
+{
+    "version": 1,
+    "author": "Gemini",
+    "editor": "wokwi",
+    "parts": [
+        {
+            "type": "wokwi-arduino-uno",
+            "id": "uno",
+            "top": 0,
+            "left": 0,
+            "attrs": {}
+        },
+        {
+            "type": "wokwi-lcd1602",
+            "id": "lcd",
+            "top": -100,
+            "left": 100,
+            "attrs": {
+                "pins": "i2c"
+            }
+        },
+        {
+            "type": "wokwi-servo",
+            "id": "servo",
+            "top": 150,
+            "left": 200,
+            "attrs": {}
+        },
+        {
+            "type": "wokwi-buzzer",
+            "id": "buzzer",
+            "top": 200,
+            "left": 50,
+            "attrs": {}
+        },
+        {
+            "type": "wokwi-potentiometer",
+            "id": "pot_buttons",
+            "top": 250,
+            "left": 150,
+            "attrs": {
+                "label": "Shield Buttons (A0)"
+            }
+        },
+        {
+            "type": "wokwi-potentiometer",
+            "id": "pot_game3",
+            "top": 300,
+            "left": 150,
+            "attrs": {
+                "label": "Game 3 Pot (A1)"
+            }
+        },
+        {
+            "type": "wokwi-pushbutton",
+            "id": "btn_ext",
+            "top": 350,
+            "left": 50,
+            "attrs": {
+                "label": "Ext Button (D2)",
+                "color": "green"
+            }
+        }
+    ],
+    "connections": [
+        [
+            "uno:5V",
+            "pot_buttons:VCC",
+            "red",
+            []
+        ],
+        [
+            "uno:GND",
+            "pot_buttons:GND",
+            "black",
+            []
+        ],
+        [
+            "uno:A0",
+            "pot_buttons:SIG",
+            "green",
+            []
+        ],
+        [
+            "uno:5V",
+            "pot_game3:VCC",
+            "red",
+            []
+        ],
+        [
+            "uno:GND",
+            "pot_game3:GND",
+            "black",
+            []
+        ],
+        [
+            "uno:A1",
+            "pot_game3:SIG",
+            "green",
+            []
+        ],
+        [
+            "uno:D6",
+            "servo:PWM",
+            "orange",
+            []
+        ],
+        [
+            "uno:5V",
+            "servo:V+",
+            "red",
+            []
+        ],
+        [
+            "uno:GND",
+            "servo:GND",
+            "black",
+            []
+        ],
+        [
+            "uno:D8",
+            "buzzer:2",
+            "purple",
+            []
+        ],
+        [
+            "uno:GND",
+            "buzzer:1",
+            "black",
+            []
+        ],
+        [
+            "uno:D2",
+            "btn_ext:2.r",
+            "blue",
+            []
+        ],
+        [
+            "uno:GND",
+            "btn_ext:1.r",
+            "black",
+            []
+        ],
+        [
+            "uno:5V",
+            "lcd:VCC",
+            "red",
+            []
+        ],
+        [
+            "uno:GND",
+            "lcd:GND",
+            "black",
+            []
+        ],
+        [
+            "uno:D4",
+            "lcd:D4",
+            "green",
+            []
+        ],
+        [
+            "uno:D5",
+            "lcd:D5",
+            "green",
+            []
+        ],
+        [
+            "uno:D6",
+            "lcd:D6",
+            "green",
+            []
+        ],
+        [
+            "uno:D7",
+            "lcd:D7",
+            "green",
+            []
+        ],
+        [
+            "uno:D8",
+            "lcd:RS",
+            "green",
+            []
+        ],
+        [
+            "uno:D9",
+            "lcd:E",
+            "green",
+            []
+        ]
+    ]
+}

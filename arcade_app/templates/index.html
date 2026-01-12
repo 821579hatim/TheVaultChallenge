@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THE VAULT CHALLENGE</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+</head>
+
+<body>
+    <div class="scanlines"></div>
+    <div class="overlay"></div>
+
+    <div class="container">
+        <!-- Header / Status -->
+        <div class="header">
+            <div class="title">THE VAULT</div>
+            <div class="status-panel">
+                <span id="connection-status" class="status-offline">DISCONNECTED</span>
+                <select id="port-select"></select>
+                <button id="connect-btn">CONNECT SYSTEM</button>
+            </div>
+        </div>
+
+        <!-- Clean Mini HUD -->
+        <div class="mini-hud">
+            LIVES: <span id="lives-container"></span> | LEVEL: <span id="current-level">1</span> | TIME: <span
+                id="game-timer">00</span>
+        </div>
+
+        <!-- Start Screen -->
+        <div id="attract-screen" class="screen active">
+            <h1 class="blink">INSERT COIN</h1>
+            <h2>OR PRESS START</h2>
+            <button class="arcade-btn start-btn" onclick="startGameSequence()">INITIALIZE HACK</button>
+        </div>
+
+        <!-- Game Container -->
+        <div id="game-screen" class="screen">
+            <div id="game-content">
+                <!-- Game 1 -->
+                <div id="game1" class="game-module">
+                    <h2>REFLEX TEST</h2>
+                    <div id="reflex-display" class="huge-text">WAITING...</div>
+                    <div id="reflex-result" class="result-text"></div>
+                    <div class="visualizer">
+                        <div class="pulse-circle"></div>
+                    </div>
+                </div>
+                <!-- Game 2 -->
+                <div id="game2" class="game-module">
+                    <h2>MEMORY SYNC</h2>
+                    <div id="memory-display" class="huge-text">WATCH</div>
+                    <div id="memory-sequence" class="sequence-display"></div>
+                </div>
+                <!-- Game 3 -->
+                <div id="game3" class="game-module">
+                    <h2>CYBER RUNNER</h2>
+                    <div class="canvas-container">
+                        <canvas id="runner-canvas" width="600" height="300"></canvas>
+                        <div class="score-display">SCORE: <span id="runner-score">0</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FULLSCREEN OVERLAYS -->
+
+        <!-- 1. Intro / Instructions Overlay -->
+        <div id="intro-overlay" class="fullscreen-overlay">
+            <h1 id="intro-title">LEVEL 1: REFLEX</h1>
+            <p id="intro-text">Instructions...</p>
+        </div>
+
+        <!-- 2. Countdown Overlay -->
+        <div id="countdown-overlay" class="fullscreen-overlay">
+            <div id="countdown-text">3</div>
+        </div>
+
+        <!-- 3. Quiz Overlay -->
+        <div id="quiz-overlay" class="fullscreen-overlay">
+            <h2 id="quiz-title">SECURITY CHECK</h2>
+            <p id="quiz-question-display">QUESTION?</p>
+
+            <div class="input-large">
+                <span id="quiz-input">0</span>
+            </div>
+
+            <div class="quiz-status">
+                <p>CONTROLS: UP/DOWN = CHANGE | SELECT = ENTER</p>
+            </div>
+        </div>
+
+        <!-- 4. Retry Overlay -->
+        <div id="retry-overlay" class="fullscreen-overlay" style="background: rgba(50,0,0,0.9);">
+            <h1 class="blink" style="color: red; font-size: 4rem;">SYSTEM FAILURE</h1>
+            <p>SYNC DESYNCHRONIZED</p>
+            <button id="retry-btn" class="arcade-btn">RETRY SEQUENCE</button>
+        </div>
+        <!-- Victory Screen -->
+        <div id="victory-screen" class="screen">
+            <h1 class="success">ACCESS GRANTED</h1>
+            <div class="chest-container" id="victory-chest">
+                <div class="chest">
+                    <div class="chest-lid"></div>
+                    <div class="chest-body">
+                        <div class="chest-lock"></div>
+                    </div>
+                </div>
+            </div>
+            <p>THE VAULT IS OPEN</p>
+            <button class="arcade-btn" onclick="resetSystem()">RESET SYSTEM</button>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/game3.js') }}"></script>
+</body>
+
+</html>

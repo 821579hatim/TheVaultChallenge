@@ -1,0 +1,40 @@
+@startuml
+actor User
+participant "Mac App (Python)" as App
+participant "Arduino Uno" as MCU
+participant "LCD" as LCD
+participant "Vault (Servo)" as Servo
+
+== Initialization ==
+MCU -> LCD: "Waiting for Mac"
+App -> MCU: "BOOT:OK" (via Serial)
+
+== Game 1: Reflex ==
+App -> MCU: "START_GAME1"
+MCU -> LCD: "Get Ready..."
+MCU -> LCD: "PRESS UP!"
+User -> MCU: Press Button (A0)
+MCU -> App: "GAME1_OK:350" (Time in ms)
+App -> User: "Success!"
+
+== Game 2: Morse ==
+App -> MCU: "START_GAME2:.-."
+MCU -> Buzzer: Beep Beep-Beep Beep
+MCU -> LCD: "Repeat..."
+User -> MCU: Press Ext Button (D2)
+MCU -> App: "GAME2_OK"
+
+== Game 3: Analog ==
+App -> MCU: "START_GAME3"
+App -> MCU: "SET_TARGET:50"
+MCU -> LCD: "Target: 50"
+User -> MCU: Adjust Potentiometer (A1)
+MCU -> LCD: "Cur: 50"
+MCU -> App: "GAME3_OK"
+
+== Unlock ==
+App -> MCU: "UNLOCK:1234"
+MCU -> EEPROM: Check PIN
+MCU -> Servo: Open (90 deg)
+MCU -> App: "STATUS:UNLOCKED"
+@enduml

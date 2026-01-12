@@ -1,0 +1,332 @@
+:root {
+    --neon-green: #0f0;
+    --neon-red: #f00;
+    --neon-blue: #0ff;
+    --bg-color: #050505;
+    --glass-color: rgba(0, 20, 0, 0.8);
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--neon-green);
+    font-family: 'Orbitron', sans-serif;
+    margin: 0;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* CRT Effects */
+.scanlines {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0),
+            rgba(255, 255, 255, 0) 50%,
+            rgba(0, 0, 0, 0.2) 50%,
+            rgba(0, 0, 0, 0.2));
+    background-size: 100% 4px;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(0, 20, 0, 0) 60%, rgba(0, 0, 0, 0.6) 100%);
+    pointer-events: none;
+    z-index: 11;
+}
+
+.container {
+    width: 90%;
+    height: 90%;
+    border: 2px solid var(--neon-green);
+    box-shadow: 0 0 20px var(--neon-green), inset 0 0 20px var(--neon-green);
+    padding: 20px;
+    position: relative;
+    background: var(--glass-color);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--neon-green);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-family: 'Press Start 2P', cursive;
+    font-size: 24px;
+    text-shadow: 2px 2px var(--neon-blue);
+}
+
+.status-panel {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.status-offline {
+    color: var(--neon-red);
+}
+
+.status-online {
+    color: var(--neon-green);
+    text-shadow: 0 0 5px var(--neon-green);
+}
+
+/* Screens */
+.screen {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Attract Mode */
+.blink {
+    animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.arcade-btn {
+    background: transparent;
+    border: 2px solid var(--neon-green);
+    color: var(--neon-green);
+    padding: 15px 30px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 20px;
+}
+
+.arcade-btn:hover {
+    background: var(--neon-green);
+    color: black;
+    box-shadow: 0 0 15px var(--neon-green);
+}
+
+/* Game Modules */
+.game-module {
+    display: none;
+}
+
+.game-module.active {
+    display: block;
+}
+
+.visualizer {
+    width: 200px;
+    height: 200px;
+    border: 1px solid var(--neon-blue);
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pulse-circle {
+    width: 50px;
+    height: 50px;
+    background: var(--neon-red);
+    border-radius: 50%;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 10px rgba(255, 0, 0, 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(255, 0, 0, 0);
+    }
+}
+
+/* Quiz */
+.quiz-img {
+    max-width: 300px;
+    border: 2px solid var(--neon-blue);
+    margin-bottom: 20px;
+}
+
+/* Fullscreen Overlays specifically for Cinematic Feel */
+.fullscreen-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(5, 5, 5, 0.95);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.fullscreen-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.fullscreen-overlay.fade-out {
+    opacity: 0;
+}
+
+/* Big Countdown */
+#countdown-overlay {
+    background: transparent;
+    /* Overlay controlled by parent opacity? No, let's keep it glass */
+    background: rgba(0, 20, 0, 0.5);
+}
+
+#countdown-text {
+    font-size: 15vw;
+    /* Massive */
+    color: var(--neon-cyan);
+    font-family: 'Press Start 2P', cursive;
+    text-shadow: 0 0 50px var(--neon-cyan);
+    animation: countdown-pulse 0.5s infinite alternate;
+}
+
+@keyframes countdown-pulse {
+    from {
+        transform: scale(1);
+        text-shadow: 0 0 20px var(--neon-cyan);
+    }
+
+    to {
+        transform: scale(1.1);
+        text-shadow: 0 0 80px var(--neon-cyan);
+    }
+}
+
+/* Instructions Screen */
+#intro-title {
+    font-size: 3rem;
+    color: var(--neon-green);
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px var(--neon-green);
+}
+
+#intro-text {
+    font-size: 1.5rem;
+    color: white;
+    max-width: 80%;
+    line-height: 1.6;
+    font-family: 'Orbitron', sans-serif;
+}
+
+/* Quiz Screen (Fullscreen) */
+#quiz-overlay {
+    background: rgba(0, 10, 20, 0.98);
+}
+
+#quiz-question-display {
+    font-size: 2rem;
+    color: var(--neon-blue);
+    margin-bottom: 3rem;
+    text-shadow: 0 0 15px var(--neon-blue);
+}
+
+.input-large {
+    font-size: 5rem;
+    color: var(--neon-green);
+    font-family: 'Press Start 2P', cursive;
+    margin: 2rem 0;
+    border: 4px solid var(--neon-green);
+    padding: 20px;
+    box-shadow: 0 0 30px var(--neon-green), inset 0 0 30px var(--neon-green);
+}
+
+/* Feedback Flashes */
+.flash-success {
+    animation: flash-green 0.5s ease-out;
+}
+
+.flash-fail {
+    animation: flash-red 0.5s ease-out;
+}
+
+@keyframes flash-green {
+    0% {
+        box-shadow: inset 0 0 0 0 rgba(0, 255, 0, 0);
+    }
+
+    50% {
+        box-shadow: inset 0 0 100px 50px rgba(0, 255, 0, 0.5);
+        background-color: rgba(0, 255, 0, 0.2);
+    }
+
+    100% {
+        box-shadow: inset 0 0 0 0 rgba(0, 255, 0, 0);
+    }
+}
+
+@keyframes flash-red {
+    0% {
+        box-shadow: inset 0 0 0 0 rgba(255, 0, 0, 0);
+    }
+
+    50% {
+        box-shadow: inset 0 0 100px 50px rgba(255, 0, 0, 0.5);
+        background-color: rgba(255, 0, 0, 0.2);
+    }
+
+    100% {
+        box-shadow: inset 0 0 0 0 rgba(255, 0, 0, 0);
+    }
+}
+
+/* Clean HUD */
+.hud {
+    display: none;
+    /* Hide default top HUD if too cluttered, user wants clean */
+}
+
+/* Only show level/timer slightly */
+.mini-hud {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 0.8rem;
+    color: rgba(0, 255, 255, 0.5);
+    z-index: 100;
+}

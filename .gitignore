@@ -1,0 +1,22 @@
+# PlatformIO
+.pio
+.pio/
+.pioenvs
+.piolibdeps
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.env
+
+# Mac
+.DS_Store
+
+# User specific
+dist/
+build/
+*.spec
